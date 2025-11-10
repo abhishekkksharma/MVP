@@ -16,7 +16,7 @@ import linkedin from "../assets/linkedin.png";
 const MvpLandingPage = () => {
   return (
     <div className="container">
-      <nav>
+      <nav className="pt-5">
         <Link to="/" className="navLeft">
           <img src={logo} alt="Website Logo" className="logo" />
           <h1 className="logo-text">MVP</h1>
