@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import Games from "./pages/Games";
 import GetStarted from "./pages/GetStarted";
 import Profile from "./pages/Profile";
+import Quiz1 from "./pages/Quiz1"
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route path="/games" element={<Games />} />
         <Route path="/get-started" element={<GetStarted />} /> 
         <Route path="/profile" element={<Profile />} />
+        <Route path="/quiz1" element={<Quiz1 />} />
       </Routes>
     </BrowserRouter>
   );

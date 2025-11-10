@@ -16,7 +16,7 @@ import linkedin from "../assets/linkedin.png";
 const MvpLandingPage = () => {
   return (
     <div className="container">
-      <nav className="pt-5">
+      <nav className="pt-4 pl-5">
         <Link to="/" className="navLeft">
           <img src={logo} alt="Website Logo" className="logo" />
           <h1 className="logo-text">MVP</h1>
@@ -126,7 +126,7 @@ const MvpLandingPage = () => {
         </div>
         <div className="learnRight">
           <div className="learnCard highlighted">
-            <div className="cardTag">FOR YOU</div>
+            <div className="cardTag animate-pulse">FOR YOU</div>
             <img src={encryptionLearning1} alt="Encryption Fundamentals" />
             <p>Encryption Fundamentals</p>
           </div>
