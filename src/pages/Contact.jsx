@@ -4,15 +4,48 @@ import { FaEnvelope, FaPhoneAlt, FaMapMarkerAlt, FaInstagram, FaDiscord } from "
 
 const Contact = () => {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState("");
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("Thank you! We'll get back to you soon.");
-    setForm({ name: "", email: "", message: "" });
+    setLoading(true);
+    setStatus("");
+
+    const data = {
+      access_key: "2751a99e-8295-4fd8-9a63-af664af25a43",
+      name: form.name,
+      email: form.email,
+      message: form.message,
+    };
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setStatus("success");
+        alert("Your complaint has been filed successfully! 🎉");
+        setForm({ name: "", email: "", message: "" });
+      } else {
+        setStatus("error");
+        alert("Failed to send your message. Try again.");
+      }
+    } catch {
+      setStatus("error");
+      alert("Something went wrong. Please try again.");
+    }
+
+    setLoading(false);
   };
 
   return (
@@ -34,7 +67,7 @@ const Contact = () => {
         </p>
 
         <div className="grid md:grid-cols-2 gap-10">
-          {/* Left Contact Information */}
+          {/* Left Contact Info */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             animate={{ opacity: 1, x: 0 }}
@@ -73,13 +106,13 @@ const Contact = () => {
             </div>
           </motion.div>
 
-          {/* Right Form Section */}
+          {/* Right Contact Form */}
           <motion.form
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="grid gap-6"
             onSubmit={handleSubmit}
+            className="grid gap-6"
           >
             <input
               type="text"
@@ -115,10 +148,14 @@ const Contact = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.97 }}
               type="submit"
-              className="px-8 py-4 bg-gradient-to-r from-[#4A70A9] to-[#8FABD4] text-white rounded-xl font-semibold text-lg hover:shadow-2xl transition-all duration-300 hover:from-[#8FABD4] hover:to-[#4A70A9]"
+              disabled={loading}
+              className="px-8 py-4 bg-gradient-to-r from-[#4A70A9] to-[#8FABD4] text-white rounded-xl font-semibold text-lg hover:shadow-2xl transition-all duration-300"
             >
-              Send Message →
+              {loading ? "Sending..." : "Send Message →"}
             </motion.button>
+
+            {status === "success" && <p className="text-green-600 text-center">Message Sent Successfully 🎉</p>}
+            {status === "error" && <p className="text-red-500 text-center">Failed to send message</p>}
           </motion.form>
         </div>
       </motion.div>
