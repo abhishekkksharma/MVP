@@ -17,7 +17,7 @@ const Contact = () => {
     setStatus("");
 
     const data = {
-      access_key: "eb210d55-e399-4a45-b4af-61ab4938bca6",
+      access_key: "af6a2ac2-0bb2-4c65-b71f-061ac14b6c9d",
       name: form.name,
       email: form.email,
       message: form.message,
